@@ -1,0 +1,29 @@
+/* SofterFeed — injected styles */
+
+:root {
+  --sf-transition: 0.3s ease;
+}
+
+/* ── Loading gate — hide page until styles are applied ───────────────────── */
+html[data-sf-loading] {
+  visibility: hidden !important;
+}
+
+/* ── Grayscale ───────────────────────────────────────────────────────────── */
+[data-sf-grayscale="on"] {
+  filter: grayscale(1);
+}
+
+/* ── Blur UGC images & videos ────────────────────────────────────────────── */
+[data-sf-blur-images="on"] img:not([data-sf-revealed]),
+[data-sf-blur-images="on"] video:not([data-sf-revealed]) {
+  filter: blur(14px);
+  cursor: zoom-in;
+  transition: filter var(--sf-transition);
+}
+
+[data-sf-blur-images="on"] img[data-sf-revealed],
+[data-sf-blur-images="on"] video[data-sf-revealed] {
+  filter: none;
+  transition: filter var(--sf-transition);
+}
