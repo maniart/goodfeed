@@ -1,4 +1,4 @@
-// SofterFeed — content script
+// BetterFeed — content script
 // Applies all feature transforms to instagram.com.
 
 // Hide the page immediately (document_start) to prevent flash of unstyled content.

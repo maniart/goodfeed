@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "GOODFEED",
+  "name": "BETTERFEED",
   "version": "0.1.0",
   "description": "Reduce stimulation on Instagram for a calmer browsing experience.",
   "permissions": ["storage", "activeTab"],

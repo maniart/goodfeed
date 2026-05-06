@@ -1,4 +1,4 @@
-// SofterFeed — popup script
+// BetterFeed — popup script
 // Reads/writes chrome.storage.sync and renders feature toggles.
 
 // Feature definitions — expand this array as features are added.

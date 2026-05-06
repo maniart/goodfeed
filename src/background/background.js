@@ -1,4 +1,4 @@
-// SofterFeed — background service worker
+// BetterFeed — background service worker
 // Handles storage defaults and messaging between popup and content script.
 
 const DEFAULTS = {

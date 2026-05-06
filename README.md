@@ -1,6 +1,6 @@
-# GOODFEED
+# BETTERFEED
 
-Instagram is designed to be loud. GOODFEED tones it down.
+Instagram is designed to be loud. BETTERFEED tones it down.
 
 ## What it does
 
@@ -10,7 +10,7 @@ Instagram is designed to be loud. GOODFEED tones it down.
 
 ## Why
 
-Constant color, motion, and auto-playing content keep our nervous system in a low-grade state of alert and distraction. GOODFEED strips away the noise so you can browse with intention — and leave when you meant to.
+Constant color, motion, and auto-playing content keep our nervous system in a low-grade state of alert and distraction. BETTERFEED strips away the noise so you can browse with intention — and leave when you meant to.
 
 ## Install
 
