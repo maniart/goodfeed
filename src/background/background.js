@@ -5,6 +5,7 @@ const DEFAULTS = {
   grayscale: true,
   blurImages: true,
   disableAutoplay: true,
+  anonymize: true,
 };
 
 chrome.runtime.onInstalled.addListener(() => {

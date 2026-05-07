@@ -6,6 +6,7 @@ const FEATURES = [
   { key: "grayscale", label: "Grayscale", description: "Removes all color from the page" },
   { key: "blurImages", label: "Blur media", description: "Blurs photos & videos — click to reveal" },
   { key: "disableAutoplay", label: "No autoplay", description: "Videos won't play until revealed" },
+  // { key: "anonymize", label: "Anonymize", description: "Hides usernames and replaces text with placeholders" },
 ];
 
 const controls = document.getElementById("controls");
