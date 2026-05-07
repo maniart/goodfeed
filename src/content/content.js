@@ -233,6 +233,49 @@ document.addEventListener(
   true
 );
 
+// ── Demo photo replacement ────────────────────────────────────────────────
+// Replaces Instagram CDN images with local demo assets for screenshot purposes.
+
+const DEMO_PHOTOS = [
+  chrome.runtime.getURL("assets/demo-1.jpg"),
+  chrome.runtime.getURL("assets/demo-2.jpg"),
+  chrome.runtime.getURL("assets/demo-3.jpg"),
+  chrome.runtime.getURL("assets/demo-4.jpg"),
+];
+let demoIndex = 0;
+
+function isCdnImage(img) {
+  return img.src && (
+    img.src.includes("cdninstagram.com") ||
+    img.src.includes("fbcdn.net")
+  );
+}
+
+function replaceDemoPhoto(img) {
+  if (img.dataset.sfDemo) return;
+  if (!isCdnImage(img)) return;
+  img.dataset.sfDemo = "1";
+  img.src = DEMO_PHOTOS[demoIndex % DEMO_PHOTOS.length];
+  demoIndex++;
+}
+
+function replaceDemoPhotosIn(root) {
+  if (root.querySelectorAll) {
+    root.querySelectorAll("img").forEach(replaceDemoPhoto);
+  }
+  if (root.tagName === "IMG") replaceDemoPhoto(root);
+}
+
+const demoObserver = new MutationObserver((mutations) => {
+  for (const m of mutations) {
+    for (const node of m.addedNodes) {
+      if (node.nodeType === Node.ELEMENT_NODE) replaceDemoPhotosIn(node);
+    }
+  }
+});
+
+demoObserver.observe(document.documentElement, { childList: true, subtree: true });
+
 // Load settings and reveal the page
 chrome.storage.sync.get(null, (stored) => {
   clearTimeout(loadingGuard);
