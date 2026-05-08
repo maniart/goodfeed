@@ -148,6 +148,33 @@ function restoreText(el) {
   delete el.dataset.sfAnon;
 }
 
+// Story tray usernames sit as siblings of the <a> tag, never inside it,
+// so they're unknown to userMap. We target the tray directly and treat
+// every short single-word text node as a username.
+function anonymizeStoryTray(root) {
+  const trays = [];
+  if (root.matches?.('[data-pagelet="story_tray"]')) trays.push(root);
+  root.querySelectorAll?.('[data-pagelet="story_tray"]').forEach((t) => trays.push(t));
+
+  for (const tray of trays) {
+    // First pass: build userMap from story links
+    tray.querySelectorAll("a[href]").forEach(anonymizeLink);
+
+    // Second pass: replace all remaining username-looking text nodes
+    const walker = document.createTreeWalker(tray, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node._sfOrig !== undefined) continue;
+      // Strip trailing ellipsis Instagram adds to truncated usernames
+      const base = node.textContent.trim().replace(/[…\.]+$/, "");
+      if (!base || base.includes(" ") || base.length > 30) continue;
+      if (!/^@?[A-Za-z0-9][A-Za-z0-9_.]*$/.test(base)) continue;
+      node._sfOrig = node.textContent;
+      node.textContent = fakeUser(base.replace(/^@/, ""));
+    }
+  }
+}
+
 function processSubtree(root) {
   if (!root.querySelectorAll) return;
   // 1. Anonymize username links (builds the userMap)
@@ -158,6 +185,8 @@ function processSubtree(root) {
   if (root.matches?.("[dir=auto]")) anonymizeText(root);
   // 3. Catch any remaining username text outside of links (uses userMap built in step 1)
   anonymizeLooseText(root);
+  // 4. Dedicated story tray pass — usernames are siblings of links, not children
+  anonymizeStoryTray(root);
 }
 
 function restoreSubtree(root) {
